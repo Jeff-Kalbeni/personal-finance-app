@@ -1,75 +1,52 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { router } from "expo-router";
+import { Button, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import "../../global.css";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+const Index = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <SafeAreaView className=" flex-1 bg-white ">
+      <View className="flex-1 items-center justify-center">
+        <Text className="text-3xl font-bold " style={{ color: "#2E5BFF" }}>
+          Welcome to TrackFin
+        </Text>
+        <Button
+          title="Sign Up"
+          onPress={() => {
+            router.push("../components/SignUp");
+          }}
+          color="#3b82f6"
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default Index;
+
+//Remember to uncomment the sync logic below if you want to enable automatic syncing of pending transactions when the app starts or when network connectivity is restored.
+/*
+import { useEffect } from 'react';
+import { syncPendingTransactions } from './utils/syncHelper';
+
+// Sync when app starts
+useEffect(() => {
+  const initialSync = async () => {
+    await syncPendingTransactions();
+  };
+  initialSync();
+}, []);
+
+// Sync when network connectivity is restored
+import { NetInfo } from '@react-native-community/netinfo';
+
+useEffect(() => {
+  const unsubscribe = NetInfo.addEventListener(async (state) => {
+    if (state.isConnected) {
+      await syncPendingTransactions();
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+*/
